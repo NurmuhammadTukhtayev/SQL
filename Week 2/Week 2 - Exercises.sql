@@ -115,6 +115,12 @@ HAVING MAX(orderdate) < '20160501';
 -- Return the three ship countries with the highest average freight for orders placed in 2015
 -- Tables involved: Sales.Orders table
 
+SELECT TOP 3 shipcountry, AVG(freight) AS avgfreight
+FROM Sales.Orders
+WHERE orderdate LIKE '2015%'
+GROUP BY shipcountry
+ORDER BY AVG(freight) DESC;
+
 -- Desired output:
 shipcountry     avgfreight
 --------------- ---------------------
@@ -129,6 +135,11 @@ Sweden          105.16
 -- based on order date ordering (using order id as tiebreaker)
 -- for each customer separately
 -- Tables involved: Sales.Orders table
+
+SELECT custid, orderdate, orderid, ROW_NUMBER() OVER (PARTITION BY custid ORDER BY orderid) AS rownum
+FROM Sales.Orders
+GROUP BY custid, orderdate, orderid
+ORDER BY custid;
 
 -- Desired output:
 custid      orderdate  orderid     rownum
@@ -152,6 +163,14 @@ custid      orderdate  orderid     rownum
 -- Ms., Mrs. - Female, Mr. - Male, Dr. - Unknown
 -- Tables involved: HR.Employees table
 
+SELECT empid, firstname, lastname, titleofcourtesy,
+	CASE
+		WHEN titleofcourtesy = 'Ms.' OR titleofcourtesy = 'Mrs.' THEN 'Female'
+		WHEN titleofcourtesy = 'Mr.' THEN 'Male'
+	ELSE 'Unknown' END
+	AS gender
+FROM HR.Employees;
+
 -- Desired output:
 empid       firstname  lastname             titleofcourtesy           gender
 ----------- ---------- -------------------- ------------------------- -------
@@ -173,6 +192,10 @@ empid       firstname  lastname             titleofcourtesy           gender
 -- having NULLs sort last (after non-NULL values)
 -- Note that the default in T-SQL is that NULLs sort first
 -- Tables involved: Sales.Customers table
+
+SELECT custid, region
+FROM Sales.Customers
+ORDER BY ISNULL(region, CHAR(255)), region;
 
 -- Desired output:
 custid      region
