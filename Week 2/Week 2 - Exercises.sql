@@ -6,6 +6,10 @@
 -- Return orders placed in June 2015
 -- Tables involved: TSQLV4 database, Sales.Orders table
 
+SELECT ORDERID, ORDERDATE, CUSTID, EMPID 
+FROM SALES.ORDERS
+WHERE ORDERDATE LIKE '2015-06%';
+
 -- Desired output:
 orderid     orderdate  custid      empid
 ----------- ---------- ----------- -----------
@@ -26,6 +30,10 @@ orderid     orderdate  custid      empid
 -- 2 
 -- Return orders placed on the last day of the month
 -- Tables involved: Sales.Orders table
+
+SELECT orderid, orderdate, custid,empid
+FROM SALES.ORDERS
+WHERE orderdate = EOMONTH(ORDERDATE);
 
 -- Desired output:
 orderid     orderdate  custid      empid
@@ -48,6 +56,10 @@ orderid     orderdate  custid      empid
 -- Return employees with last name containing the letter 'e' twice or more
 -- Tables involved: HR.Employees table
 
+SELECT empid, firstname, lastname
+FROM HR.EMPLOYEES
+WHERE lastname LIKE '%e%e%';
+
 -- Desired output:
 empid       firstname  lastname
 ----------- ---------- --------------------
@@ -60,6 +72,12 @@ empid       firstname  lastname
 -- Return orders with total value(qty*unitprice) greater than 10000
 -- sorted by total value
 -- Tables involved: Sales.OrderDetails table
+
+SELECT orderid, qty*unitprice AS totalvalue
+FROM Sales.OrderDetails
+WHERE qty*unitprice > 10000
+ORDER BY totalvalue;
+
 
 -- Desired output:
 orderid     totalvalue
@@ -89,6 +107,10 @@ orderid     totalvalue
 -- For simplicity, you can assume that only English letters are used
 -- in the employee last names.
 -- Tables involved: Sales.OrderDetails table
+
+SELECT empid, lastname
+FROM HR.EMPLOYEES
+WHERE lastname LIKE '$[a, z]%';
 
 -- Desired output:
 empid       lastname
@@ -231,6 +253,10 @@ custid      region
 -- activity that can be found in the Orders table
 -- Tables involved: TSQLV4 database, Orders table
 
+SELECT orderid, orderdate, custid, empid
+FROM Sales.Orders
+WHERE orderdate = (SELECT MAX(orderdate) FROM Sales.Orders)
+
 --Desired output
 orderid     orderdate   custid      empid
 ----------- ----------- ----------- -----------
@@ -247,6 +273,17 @@ orderid     orderdate   custid      empid
 -- * Note: there may be more than one customer
 --   with the same number of orders
 -- Tables involved: TSQLV4 database, Orders table
+
+DECLARE @NUM INT;
+SELECT TOP 1 @NUM=COUNT(custid) FROM Sales.Orders
+GROUP BY custid ORDER BY COUNT(custid) DESC;
+SELECT custid, orderid, orderdate, empid
+FROM (
+   SELECT *, COUNT(custid) OVER(PARTITION BY custid ORDER BY custid) AS C
+   FROM Sales.Orders
+) AS T
+WHERE T.C=@NUM;
+
 
 -- Desired output:
 custid      orderid     orderdate  empid
@@ -290,6 +327,10 @@ custid      orderid     orderdate  empid
 -- who did not place orders on or after May 1st, 2016
 -- Tables involved: TSQLV4 database, Employees and Orders tables
 
+SELECT empid, firstname, lastname
+FROM HR.Employees
+WHERE empid NOT IN (SELECT DISTINCT empid FROM SALES.ORDERS WHERE orderdate>'2016-05-01');
+
 -- Desired output:
 empid       FirstName  lastname
 ----------- ---------- --------------------
@@ -304,6 +345,9 @@ empid       FirstName  lastname
 -- Write a query that returns
 -- countries where there are customers but not employees
 -- Tables involved: TSQLV4 database, Customers and Employees tables
+
+SELECT DISTINCT COUNTRY FROM SALES.CUSTOMERS
+WHERE COUNTRY NOT IN (SELECT COUNTRY FROM HR.EMPLOYEES)
 
 -- Desired output:
 country
@@ -335,6 +379,13 @@ Venezuela
 -- all orders placed on the customer's last day of activity
 -- Tables involved: TSQLV4 database, Orders table
 
+WITH TMP AS (
+SELECT CUSTID, MAX(ORDERDATE) AS MDATE FROM SALES.ORDERS ) AS TMP;
+SELECT T.CUSTID, T.ORDERID, T.ORDERDATE, T.EMPID
+FROM SALES.ORDERS AS T INNER JOIN TMP
+ON T.CUSTID = TMP.CUSTID AND T.ORDERDATE = TMP.MDATE
+ORDER BY T.CUSTID
+
 -- Desired output:
 custid      orderid     orderdate   empid
 ----------- ----------- ----------- -----------
@@ -357,6 +408,12 @@ custid      orderid     orderdate   empid
 -- who placed orders in 2015 but not in 2016
 -- Tables involved: TSQLV4 database, Customers and Orders tables
 
+SELECT C.custid, C.companyname
+FROM SALES.Customers C
+WHERE C.custid IN (SELECT custid FROM SALES.Orders WHERE ORDERDATE LIKE '2015%')
+AND C.custid NOT IN (SELECT custid FROM SALES.Orders WHERE ORDERDATE LIKE '2016%')
+ORDER BY C.custid;
+
 -- Desired output:
 custid      companyname
 ----------- ----------------------------------------
@@ -375,6 +432,15 @@ custid      companyname
 -- who ordered product 12
 -- Tables involved: TSQLV4 database,
 -- Customers, Orders and OrderDetails tables
+
+SELECT C.custid, C.companyname
+FROM SALES.CUSTOMERS C
+WHERE C.custid IN (
+	SELECT custid 
+	FROM SALES.Orders O INNER JOIN SALES.OrderDetails D 
+	ON O.ORDERID = D.ORDERID 
+	WHERE D.PRODUCTID = 12
+	);
 
 -- Desired output:
 custid      companyname
@@ -398,6 +464,12 @@ custid      companyname
 -- Write a query that calculates a running total qty
 -- for each customer and month using subqueries
 -- Tables involved: TSQLV4 database, Sales.CustOrders view
+-- TODO
+
+SELECT C.CUSTID, C.ORDERMONTH, C.QTY, (SELECT SUM(QTY) FROM SALES.CUSTORDERS GROUP BY ORDERMONTH HAVING C.ORDERMONTH = ORDERMONTH) AS RUNQTY
+FROM SALES.CUSTORDERS C
+GROUP BY  C.CUSTID, C.ORDERMONTH, C.QTY
+ORDER BY C.CUSTID
 
 -- Desired output:
 custid      ordermonth              qty         runqty
@@ -429,6 +501,8 @@ custid      ordermonth              qty         runqty
 -- since the same customer’s previous order. To determine recency among orders,
 -- use orderdate as the primary sort element and orderid as the tiebreaker.
 -- Tables involved: TSQLV4 database, Sales.Orders table
+
+SELECT * FROM SALES.ORDERS
 
 -- Desired output:
 custid      orderdate  orderid     diff
