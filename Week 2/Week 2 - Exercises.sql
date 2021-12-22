@@ -496,13 +496,22 @@ custid      ordermonth              qty         runqty
 -- 19
 -- Explain the difference between IN and EXISTS
 
+Based on the rule optimizer:
+EXISTS is much faster than IN when the results of the subquery are very large.
+IN is faster than EXISTS when the subquery results are very small.
+
+Based on the cost optimizer:
+There is no difference.
+
 -- 20 
 -- Write a query that returns for each order the number of days that past
 -- since the same customer’s previous order. To determine recency among orders,
 -- use orderdate as the primary sort element and orderid as the tiebreaker.
 -- Tables involved: TSQLV4 database, Sales.Orders table
 
+-- WILL DONE
 SELECT * FROM SALES.ORDERS
+ORDER BY CUSTID
 
 -- Desired output:
 custid      orderdate  orderid     diff
@@ -527,7 +536,25 @@ custid      orderdate  orderid     diff
 ------------------------------------------------------------------------------------------------------------
  
 -- Question # 21: Using the below tables, 
--- Find 3 lowest paid employees who have finished at least 3 projects 	
+-- Find 3 lowest paid employees who have finished at least 3 projects 
+
+-- FIRST SELECT INTO NEW TABLE
+SELECT * INTO TMPTABLE
+	FROM EMPLOYEE
+		INNER JOIN PROJECTS
+		ON ID=EMPLOYEE_ID
+	ORDER BY ID
+
+-- ANSWER QUERY
+SELECT TOP 3
+	ID, NAME, EMPLOYEE_ID, SUM(SALARY) AS SUMSAL, COUNT(PROJECT_ID) AS COUNTPRO
+		FROM TMPTABLE
+			GROUP BY ID, NAME, EMPLOYEE_ID
+			HAVING COUNT(PROJECT_ID) >= 3
+		ORDER BY SUM(SALARY)
+
+
+
 CREATE TABLE [dbo].[Employee](
 	[ID] [int] NULL,
 	[Name] [nvarchar](50) NULL,
@@ -599,10 +626,19 @@ GO
 INSERT [dbo].[Projects] ([Project_ID], [Employee_ID]) VALUES (21, 2)
 GO
 INSERT [dbo].[Projects] ([Project_ID], [Employee_ID]) VALUES (22, 5)
-GO
+GO;
 
---22. Find the Parent who have both male and femal children. 
+--22. Find the Parent who have both male and female children. 
 -- This is a real Google Interview quesiton, Level = Easy
+
+SELECT T.PARENT FROM (
+	SELECT DISTINCT F.PARENT, S.ChildGender
+		FROM tblPerson F
+		LEFT JOIN tblPerson S
+		ON F.PARENT = S.PARENT
+		) AS T 
+GROUP BY T.PARENT
+HAVING COUNT(T.CHILDGENDER) = 2;
 
 SELECT 'A' as Parent, 'Male' as ChildGender INTO tblPerson
 UNION ALL
