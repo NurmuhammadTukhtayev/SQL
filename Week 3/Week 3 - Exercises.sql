@@ -4,6 +4,9 @@
 -- Write a query that generates 5 copies out of each employee row
 -- Tables involved: TSQLV4 database, Employees and Nums tables
 
+SELECT empid, firstname, lastname, n FROM HR.EMPLOYEES, NUMS
+WHERE N BETWEEN 1 AND 5;
+
 --Desired output
 empid       firstname  lastname             n
 ----------- ---------- -------------------- -----------
@@ -59,6 +62,10 @@ empid       firstname  lastname             n
 -- Write a query that returns a row for each employee and day 
 -- in the range June 12, 2016 – June 16 2016.
 -- Tables involved: TSQLV4 database, Employees and Nums tables
+
+SELECT EMPID, DATEADD(dd, N, '2016-06-01') AS DT FROM HR.EMPLOYEES, NUMS
+WHERE N BETWEEN 6 AND 10
+ORDER BY EMPID
 
 --Desired output
 empid       dt
@@ -118,10 +125,25 @@ FROM Sales.Customers AS C
   INNER JOIN Sales.Orders AS O
     ON Customers.custid = Orders.custid;
 
+-- CORRRECT QUERY MUST BE LIKE THAT
+SELECT Customers.custid, Customers.companyname, Orders.orderid, Orders.orderdate
+FROM Sales.Customers
+  INNER JOIN Sales.Orders
+    ON Customers.custid = Orders.custid;
+
 -- 3
 -- Return US customers, and for each customer the total number of orders 
 -- and total quantities.
 -- Tables involved: TSQLV4 database, Customers, Orders and OrderDetails tables
+
+SELECT C.CUSTID, COUNT(DISTINCT O.ORDERID) AS NUMORDERS, SUM(QTY) AS TOTALQTY
+FROM SALES.CUSTOMERS AS C
+INNER JOIN SALES.ORDERS AS O
+    ON C.CUSTID = O.CUSTID
+INNER JOIN SALES.OrderDetails AS OD
+    ON O.ORDERID = OD.ORDERID
+WHERE COUNTRY = 'USA'
+GROUP BY C.CUSTID;
 
 --Desired output
 custid      numorders   totalqty
@@ -146,6 +168,11 @@ custid      numorders   totalqty
 -- Return customers and their orders including customers who placed no orders
 -- Tables involved: TSQLV4 database, Customers and Orders tables
 
+SELECT CUSTOMERS.custid, CUSTOMERS.companyname, ORDERS.orderid, ORDERS.orderdate
+FROM SALES.CUSTOMERS
+RIGHT JOIN SALES.ORDERS
+    ON ORDERS.custid = CUSTOMERS.custid;
+
 -- Desired output
 custid      companyname     orderid     orderdate
 ----------- --------------- ----------- -----------
@@ -167,6 +194,12 @@ custid      companyname     orderid     orderdate
 -- Return customers who placed no orders
 -- Tables involved: TSQLV4 database, Customers and Orders tables
 
+SELECT C.custid, C.companyname
+FROM SALES.Customers C
+    LEFT JOIN SALES.Orders O
+    ON C.custid = O.custid
+WHERE O.orderid IS NULL;
+
 -- Desired output
 custid      companyname
 ----------- ---------------
@@ -179,6 +212,12 @@ custid      companyname
 -- Return customers with orders placed on Feb 12, 2016 along with their orders
 -- Tables involved: TSQLV4 database, Customers and Orders tables
 
+SELECT C.custid, C.companyname, O.orderid, O.orderdate
+FROM SALES.Orders O
+INNER JOIN SALES.Customers C
+    ON C.custid = O.custid
+WHERE orderdate = '2016-02-12';
+ 
 -- Desired output
 custid      companyname     orderid     orderdate
 ----------- --------------- ----------- ----------
@@ -192,6 +231,18 @@ custid      companyname     orderid     orderdate
 -- Write a query that returns all customers in the output, but matches
 -- them with their respective orders only if they were placed on February 12, 2016
 -- Tables involved: TSQLV4 database, Customers and Orders tables
+
+WITH TMP AS (
+SELECT C.custid, C.companyname, O.orderid, O.orderdate
+FROM SALES.Customers C
+    FULL JOIN SALES.Orders O
+        ON C.custid = O.custid
+    WHERE orderdate = '2016-02-12'
+    )
+SELECT CU.custid, OD.companyname, OD.orderid, OD.orderdate
+FROM Sales.Customers CU
+    LEFT JOIN TMP AS OD
+    ON CU.custid = OD.custid;
 
 -- Desired output
 custid      companyname     orderid     orderdate
@@ -246,6 +297,22 @@ WHERE O.orderdate = '20160212'
 -- depending on whether the customer placed an order on Feb 12, 2016
 -- Tables involved: TSQLV4 database, Customers and Orders tables
 
+SELECT * FROM sales.orders
+SELECT * FROM sales.customers
+
+WITH tmp AS (
+SELECT C.custid, C.companyname, O.orderdate
+FROM sales.customers C
+INNER JOIN sales.orders O
+    ON C.custid = O.custid
+    )
+SELECT DISTINCT custid, companyname, HasOrderOn20160212 = 
+    CASE
+        WHEN orderdate = '2016-02-12' THEN 'YES'
+        ELSE 'NO'
+    END
+FROM tmp;
+
 -- Desired output
 custid      companyname     HasOrderOn20160212
 ----------- --------------- ------------------
@@ -283,6 +350,15 @@ custid      companyname     HasOrderOn20160212
 /*
 11. Find the movie details where Tom and Bob acted together and their role is actor.
 */
+
+B		Bob		Actor
+
+SELECT MName
+FROM Movie
+    WHERE Roles = 'Actor'
+    GROUP BY MName
+    HAVING COUNT(DISTINCT AName) > 1
+
 
 --Create a sample movie table
 CREATE TABLE [Movie]
@@ -328,6 +404,14 @@ B		Bob		Actor
 You dont need to use joins here
 */
 
+SELECT year1, MAXVALUE = 
+CASE
+    WHEN Max1>Max2 AND Max1>Max3 THEN Max1
+    WHEN Max3>Max2 AND Max3>Max1 THEN Max3
+    WHEN Max2>Max1 AND Max2>Max3 THEN Max2
+END
+FROM TestMax
+
 --Sample Input
 Year1	Max1	Max2	Max3
 2001	10		101		87
@@ -361,7 +445,7 @@ VALUES
 ,(2004,27,28,91)
  
 --Select data
-Select Year1,Max1,Max2,Max3 FROM TestMax
+Select Year1,Max1,Max2,Max3 FROM TestMax;
 
 
 --Solutons
@@ -372,6 +456,14 @@ Select Year1,Max1,Max2,Max3 FROM TestMax
  /*
 13.Using joins, find the employees with salary greater than their manager.
  */
+
+SELECT * FROM dbo.Person;
+
+SELECT S.EMPID, S.EMPNAME, S.EmpSalary, S.MgrID
+FROM dbo.Person F
+    INNER JOIN dbo.Person S
+    ON F.EmpID = S.MgrID
+    WHERE F.EmpSalary < S.EmpSalary
 
  --Sample Input
 EmpID	EmpName	EmpSalary	MgrID
@@ -407,7 +499,7 @@ VALUES
 (5,    'Suchita',    110000,       4)
  
 --Verify Data
-SELECT * FROM [dbo].[Person]
+SELECT * FROM [dbo].[Person];
 
 --Solution 
 ..
@@ -421,6 +513,12 @@ Please see the sample input and expected output for udernstanding better.
 NOTE: DO YOU THINK WE CAN ACHIEVE THIS RESULT USING GROUP BY AND JOINS?? 
 THE ANSWER IS YES, please provide the same solution using Group by and Joins
 */
+
+SELECT NAME, COUNT(FRUIT) AS F
+FROM tblFruit
+GROUP BY NAME;
+
+SELECT F.NAME, S.FRUIT
 
 --Sample Input
 
@@ -499,15 +597,22 @@ INSERT INTO tblFruit(Name,Fruit) VALUES
 ('Mayank'  ,'LICHI')
  
 --Verify Data
-SELECT Name,Fruit FROM tblFruit
+SELECT Name,Fruit FROM tblFruit;
 
 --Sotution:
 -- PIVOT OPERATOR
-..
+SELECT * FROM tblFruit
+    PIVOT (COUNT(FRUIT) FOR FRUIT IN (MANGO, APPLE, ORANGE, LICHI) ) AS P
 
 -- WITHOUT PIVOT, USING GROUP BY
 
-..
+SELECT NAME, 
+COUNT(CASE WHEN FRUIT='MANGO' THEN 1 ELSE NULL END) AS MANGOCOUNT,
+COUNT(CASE WHEN FRUIT='APPLE' THEN 1 ELSE NULL END) AS APPLECOUNT,
+COUNT(CASE WHEN FRUIT='ORANGE' THEN 1 ELSE NULL END) AS ORANGECOUNT,
+COUNT(CASE WHEN FRUIT='LICHI' THEN 1 ELSE NULL END) AS LICHICOUNT
+FROM tblFruit
+GROUP BY Name;
 
 -- WITHOUT PIVOT, USING JOINS
 ..
