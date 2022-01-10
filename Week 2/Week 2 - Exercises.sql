@@ -127,11 +127,18 @@ FROM Sales.Orders
 WHERE orderdate < '20160501'
 GROUP BY empid;
 
+--in this query, the data that preceded the orderdate 2016-05-01 is first sorted and then grouped
+
 -- Query 2
 SELECT empid, COUNT(*) AS numorders
 FROM Sales.Orders
 GROUP BY empid
 HAVING MAX(orderdate) < '20160501';
+
+
+--In this case, all the data will be grouped, 
+--and then the data before the orderdate 2016-05-01 will be sorted.
+
 
 -- 7 
 -- Return the three ship countries with the highest average freight for orders placed in 2015
@@ -496,12 +503,12 @@ custid      ordermonth              qty         runqty
 -- 19
 -- Explain the difference between IN and EXISTS
 
-Based on the rule optimizer:
-EXISTS is much faster than IN when the results of the subquery are very large.
-IN is faster than EXISTS when the subquery results are very small.
+--Based on the rule optimizer:
+--EXISTS is much faster than IN when the results of the subquery are very large.
+--IN is faster than EXISTS when the subquery results are very small.
 
-Based on the cost optimizer:
-There is no difference.
+--Based on the cost optimizer:
+-- There is no difference.
 
 -- 20 
 -- Write a query that returns for each order the number of days that past
