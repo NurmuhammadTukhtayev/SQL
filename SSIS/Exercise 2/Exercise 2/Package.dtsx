@@ -1,0 +1,1815 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="1/11/2022 8:10:54 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="WIN-5RCB330B4HR"
+  DTS:CreatorName="WIN-5RCB330B4HR\user"
+  DTS:DTSID="{1158B3D8-6CBD-4E2B-8117-9E61E576A049}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1049"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="24"
+  DTS:VersionGUID="{B46750E3-BD97-46A2-BEBD-AEB0407D8C79}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[EXERCISE1]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{AFE7CF84-58A7-486B-B055-205A73C38041}"
+      DTS:ObjectName="EXERCISE1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1049"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="65001"
+          DTS:ConnectionString="C:\Projects\SQL\SQL\Week 6\HW2ExerciseSample1.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="User Name"
+              DTS:DTSID="{77ED3521-578D-4E81-A00E-1F055271AD20}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="First Name"
+              DTS:DTSID="{F4786436-B017-4606-A1B0-3F22C2C51B77}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Last Name"
+              DTS:DTSID="{63A1B548-6B7E-4FCE-B3C5-93C903E2DE56}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Display Name"
+              DTS:DTSID="{21EA5444-8C5C-4885-B481-932D38855B90}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Job Title"
+              DTS:DTSID="{8373A948-596A-483E-9EEB-827D4E267871}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Department"
+              DTS:DTSID="{C4A03968-DA53-479D-8D6D-8417DA70E2F0}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Office Number"
+              DTS:DTSID="{20E22C6D-8639-4AD2-9D8A-C35785FF046D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Office Phone"
+              DTS:DTSID="{28367555-C273-41ED-A6A1-C66AE00B8E81}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Mobile Phone"
+              DTS:DTSID="{BE9045E5-D001-4648-8A24-F479D2F958A8}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Fax"
+              DTS:DTSID="{60164D31-F8D6-4905-B8BE-BC21278D0FB9}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Address"
+              DTS:DTSID="{B6DC1E2E-1C32-42C4-AD75-F6DFF18BDAC9}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="City"
+              DTS:DTSID="{97475554-4262-42D5-8AAF-F46E5D96A7E5}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="State or Province"
+              DTS:DTSID="{984D250A-58F1-42A5-86C4-D703C46BC32C}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="ZIP or Postal Code"
+              DTS:DTSID="{D5FD7DF6-9EFB-46A3-B48A-92215DB9CA6D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Country or Region"
+              DTS:DTSID="{40BB1DF0-7868-404C-B9D6-B3ED1200CE0B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName=" Salary"
+              DTS:DTSID="{11C7C7A1-E93E-4FF8-8C50-CD1755E2AF18}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Flat File Connection Manager]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{67B78150-C636-4F37-BB8A-3A5DFAE23C45}"
+      DTS:ObjectName="Flat File Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1049"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="65001"
+          DTS:ConnectionString="C:\Projects\SQL\SQL\Week 6\HW2ExerciseSample1.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="User Name"
+              DTS:DTSID="{FE9E506A-1F71-48E4-BC1E-8B08C13922D1}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="First Name"
+              DTS:DTSID="{2CB6571A-4A6B-4390-BB60-B3BC67300B21}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Last Name"
+              DTS:DTSID="{E187384D-DFDA-4447-A1A0-F3B4F19A6BF7}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Display Name"
+              DTS:DTSID="{4BDAEEA1-87C1-4739-9489-CF55A14BE250}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Job Title"
+              DTS:DTSID="{1ECA6866-E991-4B5B-9743-AC71B7B37A0C}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Department"
+              DTS:DTSID="{56CF7DEC-3714-440B-888B-837F94B9A7A8}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Office Number"
+              DTS:DTSID="{51B8E421-53D4-409F-B214-12DF8B8A64F4}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Office Phone"
+              DTS:DTSID="{CA0EE3E4-3754-419D-8630-44770727D709}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Mobile Phone"
+              DTS:DTSID="{B07D4499-56D9-4F9E-8268-E9A58C07560C}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Fax"
+              DTS:DTSID="{F576A082-2E0D-42F4-880C-49DCC48D225E}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Address"
+              DTS:DTSID="{47F4ADA5-E042-4E3F-A716-288E8FFBF4EC}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="City"
+              DTS:DTSID="{40A99779-C528-4B09-A29E-53BBB65E7881}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="State or Province"
+              DTS:DTSID="{04D836B7-8D2C-492C-BE8C-64B418E4FBE7}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="ZIP or Postal Code"
+              DTS:DTSID="{B6817A5B-DC20-4194-9070-F79A70BA4DDA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Country or Region"
+              DTS:DTSID="{CE8CF2EF-C1A7-4E81-890F-489516A7A368}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName=" Salary"
+              DTS:DTSID="{687968A4-7833-4759-BE41-DF48125F9330}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[HW2ExerciseSample1]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{1B88D915-7F77-4FE3-9543-45EB0DD25A5A}"
+      DTS:ObjectName="HW2ExerciseSample1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1049"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="65001"
+          DTS:ConnectionString="C:\Projects\SQL\SQL\Week 6\HW2ExerciseSample1.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="User Name"
+              DTS:DTSID="{21C076A1-4DE6-440F-9CA8-7B2B5CEFB844}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="First Name"
+              DTS:DTSID="{B7753A66-42D5-498D-939C-1293423F14CD}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Last Name"
+              DTS:DTSID="{9A794C2A-FF9F-4CDE-9804-37AB75066DA1}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Display Name"
+              DTS:DTSID="{7A65A606-113E-4CD2-B9FD-210BF1C94B9E}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Job Title"
+              DTS:DTSID="{3FFA925A-CD78-476F-9A97-38BC09EEDE79}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Department"
+              DTS:DTSID="{A6588038-F3F6-4CB0-B172-501B47A2EB7F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Office Number"
+              DTS:DTSID="{26FA0B31-CBB4-40D0-B0ED-9979D1D8CD2C}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Office Phone"
+              DTS:DTSID="{34C1B2C7-AA69-4BE2-AF74-A2071F8E0D68}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Mobile Phone"
+              DTS:DTSID="{5AAAE728-9AC5-40F6-A84F-6196D5313DC3}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Fax"
+              DTS:DTSID="{B6EDF01F-11F5-45EB-9E99-5AEEC5548C6E}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Address"
+              DTS:DTSID="{3BB3E108-91FD-489D-88FF-8C8AF317A82B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="City"
+              DTS:DTSID="{788C3680-AE35-47C2-AF76-9688B6B6630C}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="State or Province"
+              DTS:DTSID="{E928E9B2-2339-44FC-86CF-BB723B92DE71}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="ZIP or Postal Code"
+              DTS:DTSID="{47B543A4-E167-42D1-B7DA-DE57505EF55B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Country or Region"
+              DTS:DTSID="{F4EB6125-178F-47EB-A0C9-CFCB7C031FEA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName=" Salary"
+              DTS:DTSID="{D9517A0C-A999-4EC7-834D-28F092EAB68D}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Sample1]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{4102D9B8-7C13-4634-9B58-5688D9C9045D}"
+      DTS:ObjectName="Sample1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1049"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\Projects\SQL\SQL\Week 6\HW2ExerciseSample1.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="User Name"
+              DTS:DTSID="{67BEE5C1-5B4E-48F5-87A2-EFB4D316CFED}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="First Name"
+              DTS:DTSID="{4F7FDB5B-5C90-4304-9476-BB0106A3FCC6}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Last Name"
+              DTS:DTSID="{6B72B91B-38BA-43FB-9659-5A861F8B047C}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Display Name"
+              DTS:DTSID="{C735DAD0-2F39-455E-BF27-FB25ECC3E3BA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Job Title"
+              DTS:DTSID="{8131C0C0-B4AB-4477-B58E-CADA0702F436}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Department"
+              DTS:DTSID="{94F62422-2DF6-40E0-8A59-91E944E96CCE}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Office Number"
+              DTS:DTSID="{F8613523-E296-40C2-BB2D-A7F2F1F299F3}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Office Phone"
+              DTS:DTSID="{8D09AB30-9E24-4A27-8D30-58B70B310909}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Mobile Phone"
+              DTS:DTSID="{AEE892F9-1060-484D-BE74-ED2A07FFB552}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Fax"
+              DTS:DTSID="{E43D5886-10CC-4A0C-BBE2-F45942A2EC41}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Address"
+              DTS:DTSID="{3A808E11-7F0F-4A8F-8AFA-48DDFDD72DB6}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="City"
+              DTS:DTSID="{F1D45AD1-C4D7-4680-A91B-B7C0F5B76F99}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="State or Province"
+              DTS:DTSID="{51084901-9F36-43DB-A3B6-C104B71BAA06}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="ZIP or Postal Code"
+              DTS:DTSID="{7CAADFF0-D1AC-4033-89EB-DD2A5A2CC0AF}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Country or Region"
+              DTS:DTSID="{CE7990A5-4537-4977-A737-BBF79673C182}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName=" Salary"
+              DTS:DTSID="{0D5E9E07-74F0-4410-A5F7-7EDB80F71678}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Sample_1]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{78334785-7279-4C7F-B01A-8C0295E0D16E}"
+      DTS:ObjectName="Sample_1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1049"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1251"
+          DTS:ConnectionString="C:\Projects\SQL\SQL\Week 6\HW2ExerciseSample1.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="User Name"
+              DTS:DTSID="{FC4CEF99-FC86-4546-9F54-9FC41130AE3F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="First Name"
+              DTS:DTSID="{18E569F0-548E-42FB-990E-84CDF894B721}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Last Name"
+              DTS:DTSID="{36E4D622-ABAD-4C88-A1BB-31FBA4FB7395}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Display Name"
+              DTS:DTSID="{92D019A4-F1AD-4628-8E41-78A757E4964A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Job Title"
+              DTS:DTSID="{9D47200F-3470-4B36-90F6-558ED27ED068}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Department"
+              DTS:DTSID="{53FE11B0-5446-4AA8-9F5F-4CF98F285E0F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Office Number"
+              DTS:DTSID="{1B72C430-9F89-4F9B-99E2-A3B419EEE6B4}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Office Phone"
+              DTS:DTSID="{525F543D-004B-48FE-8555-5986F789984C}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Mobile Phone"
+              DTS:DTSID="{C617D167-9222-4C14-9ECB-C827C8A6C618}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Fax"
+              DTS:DTSID="{2D971067-0FC6-4AE9-8F5D-4400FC1DC514}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Address"
+              DTS:DTSID="{EB05FFDB-ADC4-4061-B952-871DDFD08760}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="City"
+              DTS:DTSID="{A5EA14BC-B546-409E-852F-11134580E7BD}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="State or Province"
+              DTS:DTSID="{44FB45C7-4595-4F6E-8266-6C5899CEAA9B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="ZIP or Postal Code"
+              DTS:DTSID="{555CCF60-9950-45B6-94F4-3AD67D4ECEA1}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Country or Region"
+              DTS:DTSID="{59C8DFE8-349C-4734-B38C-CC8553D9CE44}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName=" Salary"
+              DTS:DTSID="{1AA4A37C-61AB-4517-B265-064EA8D85587}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[WIN-5RCB330B4HR.EXAMPLE]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{DA8EF884-8FCB-4307-84F9-9CCF0F711F3F}"
+      DTS:ObjectName="WIN-5RCB330B4HR.EXAMPLE">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=WIN-5RCB330B4HR;Initial Catalog=EXAMPLE;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[WIN-5RCB330B4HR.EXAMPLE 1]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{79DFC059-F0CE-48F2-BE7F-6E43BFD2964F}"
+      DTS:ObjectName="WIN-5RCB330B4HR.EXAMPLE 1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=WIN-5RCB330B4HR;Initial Catalog=EXAMPLE;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Задача потока данных"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Задача потока данных"
+      DTS:DTSID="{51BDFE70-9480-454A-B402-F040DAFD701D}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Задача потока данных"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Источник &quot;Неструктурированный файл&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;1"
+              description="Источник &quot;Неструктурированный файл&quot;"
+              localeId="1049"
+              name="Источник &quot;Неструктурированный файл&quot;"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, считается ли, что столбцы нулевой длины имеют значение NULL."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя файла выходного столбца, содержащего имя файла. Если не указано имя, выходной столбец, содержащий имя файла, не будет сформирован."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Sample_1]"
+                  connectionManagerRefId="Package.ConnectionManagers[Sample_1]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;]"
+                  name="Выход источника &quot;Неструктурированный файл&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[User Name]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[User Name]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[User Name]"
+                      name="User Name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, являются ли данные двоичными."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[First Name]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[First Name]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[First Name]"
+                      name="First Name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, являются ли данные двоичными."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Last Name]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Last Name]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Last Name]"
+                      name="Last Name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, являются ли данные двоичными."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Display Name]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Display Name]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Display Name]"
+                      name="Display Name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, являются ли данные двоичными."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Job Title]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Job Title]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Job Title]"
+                      name="Job Title"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, являются ли данные двоичными."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Department]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Department]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Department]"
+                      name="Department"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, являются ли данные двоичными."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Office Number]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Office Number]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Office Number]"
+                      name="Office Number"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, являются ли данные двоичными."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Office Phone]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Office Phone]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Office Phone]"
+                      name="Office Phone"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, являются ли данные двоичными."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Mobile Phone]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Mobile Phone]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Mobile Phone]"
+                      name="Mobile Phone"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, являются ли данные двоичными."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Fax]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Fax]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Fax]"
+                      name="Fax"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, являются ли данные двоичными."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Address]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Address]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Address]"
+                      name="Address"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, являются ли данные двоичными."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[City]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[City]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[City]"
+                      name="City"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, являются ли данные двоичными."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[State or Province]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[State or Province]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[State or Province]"
+                      name="State or Province"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, являются ли данные двоичными."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[ZIP or Postal Code]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[ZIP or Postal Code]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[ZIP or Postal Code]"
+                      name="ZIP or Postal Code"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, являются ли данные двоичными."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Country or Region]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Country or Region]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Country or Region]"
+                      name="Country or Region"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, являются ли данные двоичными."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[ Salary]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[ Salary]"
+                      length="50"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[ Salary]"
+                      name=" Salary"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, являются ли данные двоичными."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[User Name]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="User Name" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[First Name]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="First Name" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Last Name]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Last Name" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Display Name]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Display Name" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Job Title]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Job Title" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Department]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Department" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Office Number]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Office Number" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Office Phone]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Office Phone" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Mobile Phone]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Mobile Phone" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Fax]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Fax" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Address]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Address" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[City]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[State or Province]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="State or Province" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[ZIP or Postal Code]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="ZIP or Postal Code" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[Country or Region]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Country or Region" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].ExternalColumns[ Salary]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name=" Salary" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Вывод ошибок источника &quot;Неструктурированный файл&quot;]"
+                  isErrorOut="true"
+                  name="Вывод ошибок источника &quot;Неструктурированный файл&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Вывод ошибок источника &quot;Неструктурированный файл&quot;].Columns[Столбец вывода ошибок источника &quot;Неструктурированный файл&quot;]"
+                      codePage="1251"
+                      dataType="text"
+                      description="Столбец вывода ошибок источника &quot;Неструктурированный файл&quot;"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Вывод ошибок источника &quot;Неструктурированный файл&quot;].Columns[Столбец вывода ошибок источника &quot;Неструктурированный файл&quot;]"
+                      name="Столбец вывода ошибок источника &quot;Неструктурированный файл&quot;" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Вывод ошибок источника &quot;Неструктурированный файл&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Вывод ошибок источника &quot;Неструктурированный файл&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Вывод ошибок источника &quot;Неструктурированный файл&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Вывод ошибок источника &quot;Неструктурированный файл&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Назначение &quot;OLE DB&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;4"
+              description="Назначение &quot;OLE DB&quot;"
+              name="Назначение &quot;OLE DB&quot;"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowset">[dbo].[User Details]</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает переменную, содержащую имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Вызывает безусловное использование значение свойства DefaultCodePage при описании символьных данных."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает используемый режим доступа к базе данных."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, должны ли значения в столбцах идентификаторов копироваться в назначение. Если свойство имеет значение false, значения в столбцах идентификаторов будут созданы автоматически в месте назначения. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, будут ли в назначение вставляться значения NULL для столбцов, содержащих их. Значение false показывает, что если столбец имеет значение NULL, то в назначение будет вставлено его значение по умолчанию. Применяется только в случае, если включена быстрая загрузка."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Задает параметры быстрой загрузки. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Задает, когда выдаются сообщения о фиксации транзакции в ходе вставки данных. Значение 0 задает, что по окончании вставки данных будет выдано одно сообщение о фиксации транзакции. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[WIN-5RCB330B4HR.EXAMPLE]"
+                  connectionManagerRefId="Package.ConnectionManagers[WIN-5RCB330B4HR.EXAMPLE]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;]"
+                  errorOrTruncationOperation="Вставить"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Вход назначения &quot;OLE DB&quot;">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[User Name]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="User Name"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[User Name]"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[User Name]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[First Name]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="First Name"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[First Name]"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[First Name]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Last Name]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Last Name"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Last Name]"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Last Name]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Display Name]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Display Name"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Display Name]"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Display Name]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Job Title]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Job Title"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Job Title]"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Job Title]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Department]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Department"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Department]"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Department]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Office Number]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Office Number"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Office Number]"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Office Number]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Office Phone]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Office Phone"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Office Phone]"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Office Phone]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Mobile Phone]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Mobile Phone"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Mobile Phone]"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Mobile Phone]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Fax]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Fax"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Fax]"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Fax]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Address]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Address"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Address]"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Address]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[City]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="City"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[City]"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[City]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[State or Province]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="State or Province"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[State or Province]"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[State or Province]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ZIP or Postal Code]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ZIP or Postal Code"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ZIP or Postal Code]"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[ZIP or Postal Code]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Country or Region]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Country or Region"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Country or Region]"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[Country or Region]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ Salary]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName=" Salary"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ Salary]"
+                      lineageId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;].Columns[ Salary]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[User Name]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="User Name" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[First Name]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="First Name" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Last Name]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Last Name" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Display Name]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Display Name" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Job Title]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Job Title" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Department]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Department" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Office Number]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Office Number" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Office Phone]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Office Phone" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Mobile Phone]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Mobile Phone" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Fax]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Fax" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Address]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Address" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[City]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[State or Province]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="State or Province" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ZIP or Postal Code]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="ZIP or Postal Code" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Country or Region]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name="Country or Region" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ Salary]"
+                      codePage="1251"
+                      dataType="str"
+                      length="50"
+                      name=" Salary" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок назначения &quot;OLE DB&quot;"
+                  synchronousInputId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Задача потока данных.Paths[Выход источника &quot;Неструктурированный файл&quot;]"
+              endId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;]"
+              name="Выход источника &quot;Неструктурированный файл&quot;"
+              startId="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;.Outputs[Выход источника &quot;Неструктурированный файл&quot;]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="188.8,41.6"
+          Id="Package\Задача потока данных"
+          TopLeft="18.3333326048321,7.80000006198883" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Задача потока данных">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="272,41.6"
+          Id="Package\Задача потока данных\Источник &quot;Неструктурированный файл&quot;"
+          TopLeft="84.5,50.5" />
+        <NodeLayout
+          Size="185.6,41.6"
+          Id="Package\Задача потока данных\Назначение &quot;OLE DB&quot;"
+          TopLeft="245.5,245.5" />
+        <EdgeLayout
+          Id="Package\Задача потока данных.Paths[Выход источника &quot;Неструктурированный файл&quot;]"
+          TopLeft="220.5,92.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="117.8,153.4"
+              Start="0,0"
+              End="117.8,145.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,72.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,72.7"
+                    Point2="0,76.7"
+                    Point3="4,76.7" />
+                  <mssgle:LineSegment
+                    End="113.8,76.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="113.8,76.7"
+                    Point2="117.8,76.7"
+                    Point3="117.8,80.7" />
+                  <mssgle:LineSegment
+                    End="117.8,145.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Задача потока данных\Назначение &quot;OLE DB&quot;">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
