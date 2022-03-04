@@ -10,10 +10,9 @@ FROM
 --Using that table, get the total number of times the product cost has changed.
 --Sort the results by ProductID
 
-SELECT DISTINCT 
-ProductID, COUNT(ProductID) OVER (PARTITION BY ProductID) AS TotalPriceChanges
-FROM ProductCostHistory
-ORDER BY ProductID;
+SELECT DISTINCT ProductID,
+       COUNT(ProductID) OVER ( PARTITION BY ProductID ORDER BY ProductID) AS TotalPriceChanges
+FROM ProductCostHistory;
 
 
 -- 2. Customers with total orders placed
@@ -33,34 +32,23 @@ ORDER BY  TotalOrders DESC
 --tables, and figure out which ones you need to use.
 --Sort the results by ProductID
 
-SELECT ProductID,
-	CONVERT(VARCHAR, MIN(ORDERDATE), 23) AS FIRSRORDER,
-	CONVERT(VARCHAR, MAX(ORDERDATE), 23) AS LASTORDER
-FROM SALESORDERDETAIL SOD
-INNER JOIN SALESORDERHEADER SOH
-	ON SOD.SALESORDERID = SOH.SALESORDERID
-	GROUP BY ProductID
-	ORDER BY ProductID;
+SELECT DISTINCT ProductID, MIN(OrderDate) OVER ( PARTITION BY ProductID ORDER BY ProductID) AS FirstOrder,
+       MAX(OrderDate) OVER ( PARTITION BY ProductID ORDER BY ProductID) AS LastOrder
+FROM SalesOrderDetail SOD
+    INNER JOIN SalesOrderHeader SOH on SOD.SalesOrderID = SOH.SalesOrderID;
+
 
 --4. Products with first and last order date, including name
 --For each product that was ordered, show the first and last date that it was ordered. This time, 
 --include the name of the product in the output, to make it easier to understand.
 --Sort the results by ProductID.
 
-SELECT * FROM SALESORDERDETAIL;
-SELECT * FROM SALESORDERHEADER;
-SELECT * FROM Products;
-
-SELECT SOD.ProductID, P.ProductName,
-  CONVERT(VARCHAR, MIN(ORDERDATE), 23) AS FIRSRORDER,
-  CONVERT(VARCHAR, MAX(ORDERDATE), 23) AS LASTORDER
-FROM SALESORDERDETAIL SOD
- JOIN SALESORDERHEADER SOH
-  ON SOD.SALESORDERID = SOH.SALESORDERID
- JOIN Product P
-  ON P.ProductID = SOD.ProductID
-  GROUP BY SOD.ProductID, P.ProductName
-  ORDER BY ProductID;
+SELECT DISTINCT P.ProductID, ProductName,
+                MIN(OrderDate) OVER ( PARTITION BY P.ProductID ORDER BY P.ProductID) AS FirstOrder,
+       MAX(OrderDate) OVER ( PARTITION BY P.ProductID ORDER BY P.ProductID) AS LastOrder
+FROM SalesOrderDetail SOD
+    INNER JOIN SalesOrderHeader SOH on SOD.SalesOrderID = SOH.SalesOrderID
+INNER JOIN Product P on SOD.ProductID = P.ProductID
 
 --5. Product cost on a specific date
 --We'd like to get a list of the cost of products, as of a certain date, 2012-04-15. Use the 
@@ -68,9 +56,8 @@ FROM SALESORDERDETAIL SOD
 --Sort the output by ProductID.
 SELECT * FROM ProductCostHistory;
 
-SELECT ProductID, STANDARDCOST
-FROM ProductCostHistory
-WHERE STARTDATE<='2012-04-15' AND  ENDDATE>='2012-04-15';
+SELECT ProductID, StandardCost FROM ProductCostHistory
+WHERE '2012-04-15' BETWEEN StartDate AND EndDate;
 
 --6. Product cost on a specific date, part 2
 --It turns out that the answer to the above problem has a problem. Change the date to 2014-04-15. 
@@ -80,21 +67,18 @@ WHERE STARTDATE<='2012-04-15' AND  ENDDATE>='2012-04-15';
 --Fix the SQL so it gives the correct results with the new date. Note that when the EndDate is null, 
 --that means that price is applicable into the future.
 
-SELECT ProductID, STANDARDCOST
-FROM ProductCostHistory
-WHERE (STARTDATE<='2012-04-15' AND  ENDDATE>='2012-04-15')
-OR (STARTDATE<='2012-04-15' AND ENDDATE IS NULL)
+SELECT ProductID, StandardCost FROM ProductCostHistory
+WHERE '2014-04-15' BETWEEN StartDate AND ISNULL(EndDate, GETDATE())
 ORDER BY ProductID;
 
 
 --7. Product List Price: how many price changes?
 --Show the months from the ProductListPriceHistory table, and the total number of changes made 
 --in that month.
-SELECT * FROM ProductListPriceHistory;
 
-SELECT FORMAT(STARTDATE, 'yyyy/MM') AS ProductListPriceMonth, COUNT(*) AS TotalRows
-FROM ProductListPriceHistory
-GROUP BY FORMAT(STARTDATE, 'yyyy/MM');
+SELECT DISTINCT FORMAT(StartDate, 'yyyy/MM') AS ProductListPriceMonth,
+                COUNT(*) OVER ( PARTITION BY FORMAT(StartDate, 'yyyy/MM') ) AS TotalRows
+FROM ProductListPriceHistory;
 
 --8. Product List Price: months with no price changes?
 --After reviewing the results of the previous query, it looks like price changes are made only
@@ -106,16 +90,15 @@ GROUP BY FORMAT(STARTDATE, 'yyyy/MM');
 SELECT * FROM Calendar;
 
 WITH TMP AS (
-SELECT FORMAT(STARTDATE, 'yyyy/MM - MMM', 'en-US') AS ProductListPriceMonth, COUNT(*) AS TotalRows
+SELECT FORMAT(StartDate, 'yyyy/MM - MMM', 'en-US') AS ProductListPriceMonth, COUNT(*) AS TotalRows
 FROM ProductListPriceHistory
-GROUP BY FORMAT(STARTDATE, 'yyyy/MM - MMM', 'en-US')
+GROUP BY FORMAT(StartDate, 'yyyy/MM - MMM', 'en-US')
 )
-
 SELECT DISTINCT CalendarMonth, ISNULL(TMP.TotalRows, 0)
 FROM Calendar
 LEFT JOIN TMP
 ON Calendar.CalendarMonth = TMP.ProductListPriceMonth
-WHERE CALENDARMONTH BETWEEN '2011/05' AND '2013/06'
+WHERE CalendarMonth BETWEEN '2011/05' AND '2013/06'
 ORDER BY CalendarMonth;
 
 
@@ -123,20 +106,20 @@ ORDER BY CalendarMonth;
 --What is the current list price of every product, using the ProductListPrice history?
 --Order by ProductID
 
-SELECT DISTINCT ProductID, LISTPRICE
-FROM ProductListPriceHistory
+SELECT ProductID, ListPrice FROM ProductListPriceHistory
 WHERE EndDate IS NULL
 ORDER BY ProductID;
+
 
 --10. Products without a list price history
 --Show a list of all products that do not have any entries in the list price history table.
 --Sort the results by ProductID
 
-SELECT P.ProductID, P.PRODUCTNAME
-FROM ProductListPriceHistory PLHP
-RIGHT JOIN Product P
-ON PLHP.ProductID = P.ProductID
-WHERE PLHP.ProductID IS NULL;
+SELECT ProductID, ProductName FROM Product
+WHERE ProductID NOT IN (
+    SELECT ProductID FROM ProductListPriceHistory
+    )
+ORDER BY ProductID;
 
 --11. Product cost on a specific date, part 3
 --In the earlier problem “Product cost on a specific date, part 2”, this answer was given:
@@ -150,25 +133,23 @@ Where '2014-04-15' Between StartDate and IsNull(EndDate, getdate())
 --Show every ProductID in the ProductCostHistory table that does not appear when you run 
 --the above SQL.
 
-SELECT DISTINCT ProductID 
-FROM ProductCostHistory
+
+SELECT DISTINCT ProductID FROM ProductCostHistory
 WHERE ProductID NOT IN (
-	Select ProductID
-	From ProductCostHistory
-	Where '2014-04-15' Between StartDate and IsNull(EndDate, getdate())
-)
+    SELECT DISTINCT ProductID FROM ProductCostHistory
+WHERE '2014-04-15' BETWEEN StartDate AND ISNULL(EndDate, GETDATE())
+    );
 
 --12. Products with multiple current list price records
 --There should only be one current price for each product in the ProductListPriceHistory table, 
 --but unfortunately some products have multiple current records.
 --Find all these, and sort by ProductID
 
-SELECT ProductID
-FROM ProductListPriceHistory
+WITH TMP AS (
+    SELECT DISTINCT ProductID, COUNT(*) OVER ( PARTITION BY ProductID) AS C FROM ProductListPriceHistory
 WHERE EndDate IS NULL
-GROUP BY ProductID
-HAVING COUNT(ProductID)>1
-ORDER BY ProductID;
+)
+SELECT ProductID FROM TMP WHERE C > 1;
 
 --13. Products with their first and last order date, including name and subcategory
 --In the problem “Products with their first and last order date, including name", we looked only at 
@@ -178,22 +159,14 @@ ORDER BY ProductID;
 --subcategory as well.
 --Sort by the ProductName field.
 
-SELECT * FROM Product
-SELECT * FROM ProductSubcategory
-SELECT * FROM SalesOrderDetail
-SELECT * FROM SalesOrderHeader
-
-SELECT  P.ProductID,
-        P.ProductName,
-        PSC.ProductSubCategoryName,
-        ISNULL(CONVERT(varchar,MIN(OrderDate),23),NULL) AS FirstOrder,
-        ISNULL(CONVERT(varchar,MAX(OrderDate),23),NULL) AS LastOrder
+SELECT DISTINCT P.ProductID, ProductName, ProductSubCategoryName,
+       MIN(OrderDate) OVER ( PARTITION BY P.ProductID) AS FirstOrder,
+       MAX(OrderDate) OVER ( PARTITION BY P.ProductID) AS LastOrder
 FROM Product P
-     LEFT JOIN  SalesOrderDetail SD ON SD.ProductID = P.ProductID
-     LEFT JOIN  SalesOrderHeader SOH ON SD.SalesOrderID = SOH.SalesOrderID
-     LEFT JOIN  ProductSubcategory PSC ON P.ProductSubcategoryID = PSC.ProductSubcategoryID
-GROUP BY  P.ProductID, P.ProductName,  PSC.ProductSubCategoryName
-ORDER BY  P.ProductName
+    LEFT JOIN SalesOrderDetail SOD on P.ProductID = SOD.ProductID
+    LEFT JOIN SalesOrderHeader SOH on SOD.SalesOrderID = SOH.SalesOrderID
+    LEFT JOIN ProductSubcategory PS on P.ProductSubcategoryID = PS.ProductSubcategoryID
+ORDER BY ProductName;
 
 --14. Products with list price discrepancies 
 --It's astonishing how much work with SQL and data is in finding and resolving discrepancies in 
@@ -201,6 +174,17 @@ ORDER BY  P.ProductName
 --seem to match the actual list price in the Product table. 
 --Find all these discrepancies. Sort the results by ProductID.
 
+SELECT P.ProductID, ProductName, P.ListPrice AS Prod_ListPrice,
+       PLPH.ListPrice AS PriceHist_LatestListPrice,
+       (P.ListPrice - PLPH.ListPrice) AS Diff
+FROM (
+              SELECT DISTINCT ProductID, ListPrice FROM ProductListPriceHistory
+                WHERE EndDate IS NULL
+                  ) PLPH
+INNER JOIN Product P ON P.ProductID = PLPH.ProductID
+WHERE (P.ListPrice - PLPH.ListPrice) <> 0;
+
+-- OR WITH TEMP TABLE
 
 SELECT * INTO #last_price FROM ProductListPriceHistory WHERE EndDate IS NULL
 SELECT
@@ -217,23 +201,14 @@ WHERE P.ListPrice<>#last_price.ListPrice
 --SellStartDate and SellEndDate in the Product table. Show a list of these orders, with details.
 --Sort the results by ProductID, then OrderDate.
 
-WITH tmp AS (
-    SELECT OrderQty,OrderDate,ProductID FROM SalesOrderHeader
-        INNER JOIN SalesOrderDetail SOD on SalesOrderHeader.SalesOrderID = SOD.SalesOrderID
-),
-ans AS (
-SELECT
-       P.ProductID,
-       FORMAT(OrderDate,'yyyy-MM-dd') AS OrderDate,
-       ProductName,
-       OrderQty AS Qty,
-       SellStartDate,
-       SellEndDate
+SELECT * FROM (
+              SELECT P.ProductID, OrderDate, ProductName,OrderQty, SellStartDate, SellEndDate
 FROM Product P
-    INNER JOIN tmp ON tmp.ProductID = P.ProductID
-WHERE OrderDate NOT BETWEEN  P.SellStartDate  AND ISNULL(SellEndDate,getdate())
-    )
-SELECT * FROM ans  ORDER BY  ProductID, OrderDate
+        INNER JOIN SalesOrderDetail SOD on P.ProductID = SOD.ProductID
+        INNER JOIN SalesOrderHeader SOH on SOD.SalesOrderID = SOH.SalesOrderID
+                  ) TB
+WHERE TB.OrderDate NOT BETWEEN SellStartDate AND SellEndDate
+ORDER BY ProductID, OrderDate;
 
 
 --16. Orders for products that were unavailable: details 
@@ -243,24 +218,18 @@ SELECT * FROM ans  ORDER BY  ProductID, OrderDate
 --after the sell end date. 
 --Sort the results by ProductID and OrderDate.
 
-WITH tmp AS (
-    SELECT OrderQty,OrderDate,ProductID FROM SalesOrderHeader
-        INNER JOIN SalesOrderDetail SOD on SalesOrderHeader.SalesOrderID = SOD.SalesOrderID
-)
-SELECT P.ProductID,
-       FORMAT(OrderDate,'yyyy-MM-dd') AS OrderDate,
-       ProductName,
-       OrderQty AS Qty,
-       SellStartDate,
-       SellEndDate,
-       CASE
-         WHEN OrderDate<P.SellStartDate  THEN 'Sold after start date'
-         ELSE 'Sold before end date'
-       END AS ProblemType
-FROM Product P
-    INNER JOIN tmp ON tmp.ProductID = P.ProductID
-WHERE OrderDate NOT BETWEEN  P.SellStartDate  AND ISNULL(SellEndDate,getdate())
-ORDER BY  ProductID,OrderDate;
+SELECT *, ProblemType = CASE
+                WHEN TB.OrderDate < SellStartDate THEN 'Sold before start date'
+                ELSE 'Sold after end date'
+        END
+            FROM (
+              SELECT P.ProductID, OrderDate, ProductName,OrderQty, SellStartDate, SellEndDate
+                    FROM Product P
+                INNER JOIN SalesOrderDetail SOD on P.ProductID = SOD.ProductID
+                INNER JOIN SalesOrderHeader SOH on SOD.SalesOrderID = SOH.SalesOrderID
+                  ) TB
+WHERE TB.OrderDate NOT BETWEEN SellStartDate AND SellEndDate
+ORDER BY ProductID, OrderDate;
 
 
 --17. OrderDate with time component
@@ -268,12 +237,15 @@ ORDER BY  ProductID,OrderDate;
 --Show the results as below.
 
 --DECLARE @tot INT
-DECLARE @tot INT = (SELECT count(*) FROM SalesOrderHeader
-WHERE DATEDIFF(SECOND,OrderDate, FORMAT(OrderDate,'yyyy-MM-dd'))<>0)
-DECLARE @to INT = (SELECT count(*) FROM SalesOrderHeader)
-DECLARE @pot float = 1.0*@tot/@to;
 
-SELECT @tot AS TotalOrderWithTime, @to AS TotalOrders, @pot AS PercentOrdersWithTime;
+DECLARE @TOWT NUMERIC = (
+    SELECT COUNT(SalesOrderID) FROM SalesOrderHeader
+WHERE CONVERT(DATE, OrderDate) <> OrderDate
+)
+DECLARE @TO NUMERIC = (
+    SELECT COUNT(SalesOrderID) FROM SalesOrderHeader
+)
+SELECT @TOWT AS TotalOrderWithTime, @TO AS TotalOrders, @TOWT/@TO AS PercentOrdersWithTime;
 
 --18. Fix this SQL! Number 1 
 --We want to show details about certain products (name, subcategory, first order date, last order 
@@ -304,19 +276,22 @@ Group by
 Order by LastOrder desc
 
 -- FIXED VERSION
-SELECT Product.ProductID, ProductName, ProductSubCategoryName, 
-       FirstOrder = CONVERT(DATE, MIN(OrderDate)), LastOrder = CONVERT(DATE, MAX(OrderDate))
-FROM Product
-LEFT JOIN SalesOrderDetail Detail
-    ON Product.ProductID = Detail.ProductID
-LEFT JOIN SalesOrderHeader Header
-    ON Header.SalesOrderID = Detail .SalesOrderID
-LEFT JOIN ProductSubCategory
-    ON ProductSubCategory.ProductSubCategoryID = Product.ProductSubCategoryID
-WHERE Color = 'Silver'
-GROUP BY
-    Product.ProductID, ProductName, ProductSubCategoryName
-ORDER BY LastOrder DESC;
+Select DISTINCT
+P.ProductID
+,P.ProductName
+,ProductSubCategoryName
+,FirstOrder = Convert(date, Min(OrderDate) OVER ( PARTITION BY P.ProductID ))
+,LastOrder = Convert(date, Max(OrderDate) OVER ( PARTITION BY P.ProductID ))
+From Product P
+Left Join SalesOrderDetail Detail
+on P.ProductID = Detail.ProductID
+Left Join SalesOrderHeader Header
+on Header.SalesOrderID = Detail .SalesOrderID
+Left Join ProductSubCategory
+on ProductSubCategory .ProductSubCategoryID = P.ProductSubCategoryID
+Where
+Color = 'Silver'
+Order by LastOrder desc;
 
 --19. Raw margin quartile for products
 --The product manager would like to show information for all products about the raw margin –
@@ -326,25 +301,28 @@ ORDER BY LastOrder DESC;
 --the product is in the second 25%, etc.
 --Sort the rows by the product name.
 
-SELECT ProductID, ProductName, StandardCost, ListPrice, ListPrice-StandardCost AS RawMargin,
-    NTILE(4)  OVER (ORDER BY ListPrice-StandardCost DESC) AS Quartile
+SELECT ProductID, ProductName, StandardCost, ListPrice,
+       (ListPrice - StandardCost) AS RawMargin,
+       NTILE(4) OVER ( ORDER BY (ListPrice - StandardCost) DESC ) AS Quartile
 FROM Product
-    WHERE ListPrice-StandardCost<>0
-ORDER BY ProductName
+WHERE StandardCost <> 0 AND ListPrice<>0
+ORDER BY ProductName;
 
 
 --20. Customers with purchases from multiple sales people
 --Show all the customers that have made purchases from multiple sales people. 
 --Sort the results by the customer name (first name plus last name).
+-- NEED TO TAKE A LOOK
 
-SELECT C.CustomerID,
-      CONCAT(FirstName,' ',LastName) AS CustomerName,
-      COUNT(SalesPersonEmployeeID) AS TotalDifferentSalesPeople
-FROM SalesOrderHeader
-     INNER JOIN Customer C on SalesOrderHeader.CustomerID = C.CustomerID
-GROUP BY C.CustomerID , CONCAT(FirstName,' ',LastName)
-HAVING  COUNT(SalesPersonEmployeeID)>1
-ORDER BY  CustomerName;
+SELECT * FROM (
+              SELECT DISTINCT C.CustomerID, CONCAT(FirstName, ' ', LastName) AS CustomerName,
+       COUNT(SalesPersonEmployeeID) OVER
+           ( PARTITION BY C.CustomerID ) AS TotalDifferentSalesPeople
+FROM Customer C
+    INNER JOIN SalesOrderHeader SOH on C.CustomerID = SOH.CustomerID
+                  ) T
+WHERE TotalDifferentSalesPeople > 1
+ORDER BY CustomerName;
 
 --21. Fix this SQL! Number 2
 --A colleague has sent you the following SQL, which causes an error:
@@ -365,7 +343,7 @@ From SalesOrderHeader
  on Customer.CustomerID = SalesOrderHeader.CustomerID
 Order by 
  CustomerID
- ,OrderDate 
+ ,OrderDate;
 
 --The error it gives is this:
 --Msg 4104, Level 16, State 1, Line 11
@@ -373,32 +351,43 @@ Order by
 --Fix the SQL so it returns the correct results without error.
 
 --FIXED QUERY
-SELECT TOP 100
-   Customer.CustomerID, CustomerName = FirstName + ' ' + LastName, OrderDate,
-   SalesOrderHeader.SalesOrderID, SalesOrderDetail.ProductID, Product.ProductName, LineTotal
-From SalesOrderHeader
-INNER JOIN SalesOrderDetail
-    ON SalesOrderHeader .SalesOrderID = SalesOrderDetail .SalesOrderID
-INNER JOIN Product
-    ON Product.ProductID = SalesOrderDetail.ProductID
-INNER JOIN Customer
-    ON Customer.CustomerID = SalesOrderHeader.CustomerID
-ORDER BY CustomerID,OrderDate;
+Select top 100
+C.CustomerID
+,CustomerName = FirstName + ' ' + LastName
+,OrderDate
+,SOH.SalesOrderID
+,SOD.ProductID
+,P.ProductName
+,LineTotal
+From SalesOrderHeader SOH
+    Join SalesOrderDetail SOD
+on SOH .SalesOrderID = SOD .SalesOrderID
+Join Product P
+on P.ProductID = SOD.ProductID
+Join Customer C
+on C.CustomerID = SOH.CustomerID
+Order by
+CustomerID
+,OrderDate;
 
 --22. Duplicate product
 --It looks like the Product table may have duplicate records. Find the names of the products that 
 --have duplicate records (based on having the same ProductName).
 
-SELECT ProductName FROM Product
-GROUP BY ProductName
-HAVING COUNT(ProductName)>1;
+SELECT DISTINCT ProductName FROM (
+              SELECT ProductName,
+                     COUNT(ProductName) OVER ( PARTITION BY ProductName) AS C FROM Product
+                  ) P
+WHERE C > 1;
 
 --23. Duplicate product: details
 --We'd like to get some details on the duplicate product issue. For each product that has duplicates, 
 --show the product name and the specific ProductID that we believe to be the duplicate (the one 
 --that's not the first ProductID for the product name).
 
-SELECT MAX(ProductID) AS ProductID,
-       ProductName FROM Product
-GROUP BY  ProductName
-HAVING  COUNT(ProductName)>1;
+SELECT DISTINCT Product, ProductName FROM (
+              SELECT DISTINCT ProductID, ProductName,
+                     MAX(ProductID) OVER ( PARTITION BY ProductName) AS Product,
+                     COUNT(ProductName) OVER ( PARTITION BY ProductName) AS C FROM Product
+                  ) P
+WHERE C > 1;
