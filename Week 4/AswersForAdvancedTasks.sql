@@ -7,16 +7,14 @@
 --For this query, you can ignore the fact that in ProductCostHistory, sometimes there's an 
 --additional record for a product where the cost didn't actually change.
 
-SELECT * FROM ProductCostHistory;
+SELECT  DISTINCT ProductID, COUNT(StartDate)
+    OVER ( PARTITION BY ProductID) AS Changes
+INTO #tmp
+FROM ProductCostHistory;
 
-WITH TMP AS (
-SELECT ProductID,  COUNT(StartDate) AS TOTAL
-FROM ProductCostHistory
-GROUP BY ProductID
-)
-SELECT TMP.TOTAL, COUNT(PRODUCTID) AS TP
-FROM TMP
-GROUP BY TOTAL;
+SELECT DISTINCT Changes, COUNT(ProductID)
+FROM #tmp
+GROUP BY Changes;
 
 --25. Size and base ProductNumber for products
 --The ProductNumber field in the Product table comes from the vendor of the product. The size is
@@ -26,14 +24,14 @@ GROUP BY TOTAL;
 --ProductNumber, and the size field will be null.
 --Limit the results to those ProductIDs that are greater than 533. Sort by ProductID.
 
-SELECT ProductID, ProductNumber,
-	CHARINDEX('-', ProductNumber) AS HyphenLocation,
-	IIF(CHARINDEX('-', ProductNumber)=0, ProductNumber, SUBSTRING(ProductNumber, 0, CHARINDEX('-', ProductNumber)))  
-		AS BaseProductNumber,
-	IIF(CHARINDEX('-', ProductNumber)=0, NULL, SUBSTRING(ProductNumber, CHARINDEX('-', ProductNumber)+1, LEN(ProductNumber))) 
-		AS Size
+SELECT ProductID, ProductNumber, CHARINDEX('-', ProductNumber) AS HyphenLocation,
+     IIF(CHARINDEX('-', ProductNumber) = 0, ProductNumber, SUBSTRING(ProductNumber, 0,CHARINDEX('-', ProductNumber) ))
+         AS BaseProductNumber,
+     IIF(CHARINDEX('-', ProductNumber) = 0, NULL, SUBSTRING(ProductNumber, CHARINDEX('-', ProductNumber) + 1, LEN(ProductNumber)))
+         AS [Size]
 FROM Product
-WHERE ProductID > 533;
+WHERE ProductID > 533
+ORDER BY ProductID;
 
 --26. Number of sizes for each base product number
 --Now we'd like to get all the base ProductNumbers, and the number of sizes that they have.
@@ -44,9 +42,9 @@ WHERE ProductID > 533;
 
 SELECT ProductID, ProductNumber,
 	CHARINDEX('-', ProductNumber) AS HyphenLocation,
-	IIF(CHARINDEX('-', ProductNumber)=0, ProductNumber, SUBSTRING(ProductNumber, 0, CHARINDEX('-', ProductNumber)))  
+	IIF(CHARINDEX('-', ProductNumber)=0, ProductNumber, SUBSTRING(ProductNumber, 0, CHARINDEX('-', ProductNumber)))
 		AS BaseProductNumber,
-	IIF(CHARINDEX('-', ProductNumber)=0, NULL, SUBSTRING(ProductNumber, CHARINDEX('-', ProductNumber)+1, LEN(ProductNumber))) 
+	IIF(CHARINDEX('-', ProductNumber)=0, NULL, SUBSTRING(ProductNumber, CHARINDEX('-', ProductNumber)+1, LEN(ProductNumber)))
 		AS Size,
 	PS.ProductCategoryID
 	INTO #TMP
@@ -73,18 +71,10 @@ ORDER BY BaseProductNumber;
 --actually changed. Also include the initial row for a product, even if there's only 1 record.
 --Sort the output by ProductID.
 
-WITH tmp AS (
-   SELECT ProductID,
-          StandardCost,
-          LAG(StandardCost) over (PARTITION BY ProductID ORDER BY StartDate) AS ncost
-   FROM ProductCostHistory
-)
-SELECT  tmp.ProductID,
-        P.ProductName,
-        count(tmp.StandardCost) AS TotalCostChanges
-FROM tmp INNER JOIN  Product P ON P.ProductID = tmp.ProductID
-WHERE tmp.StandardCost<>ncost OR ncost IS NULL
-GROUP BY tmp.ProductID , P.ProductName;
+SELECT DISTINCT PCH.ProductID, P.ProductName,
+       COUNT(PCH.ProductID) OVER ( PARTITION BY PCH.ProductID ORDER BY PCH.ProductID) AS TotalCostChanges
+FROM ProductCostHistory PCH
+INNER JOIN Product P ON P.ProductID = PCH.ProductID;
 
 
 --28. Which products had the largest increase in cost?
@@ -94,20 +84,19 @@ GROUP BY tmp.ProductID , P.ProductName;
 --1 record in the cost history table, you would not show it in the output, because there has been no
 --change in the cost history.
 
-WITH tmp AS (
-   SELECT ProductID,
-          StandardCost,
-          StartDate,
-          LAG(StandardCost) over (PARTITION BY ProductID ORDER BY ProductID) AS COST
-   FROM ProductCostHistory
-)
-SELECT  tmp.ProductID,
-        tmp.StartDate,
-        P.ProductName ,
-        tmp.COST-tmp.StandardCost AS PriceDifference
-FROM tmp INNER JOIN  Product P ON P.ProductID = tmp.ProductID
-WHERE tmp.StandardCost<>COST
-ORDER BY PriceDifference DESC;
+SELECT ProductID, CostChangeDate, StandardCost, Prev, Diff,
+    MAX(Prev - StandardCost) OVER ( PARTITION BY ProductID ) AS MD
+INTO #ProductCostChanges
+FROM (
+     SELECT DISTINCT ProductID, StartDate AS CostChangeDate, StandardCost,
+       LAG(StandardCost) over ( PARTITION BY ProductID ORDER BY ProductID) AS Prev,
+       LAG(StandardCost) over ( PARTITION BY ProductID ORDER BY ProductID)  - ProductCostHistory.StandardCost AS Diff
+FROM ProductCostHistory
+         ) T;
+SELECT ProductID, CostChangeDate, StandardCost, Prev, Diff
+FROM #ProductCostChanges
+WHERE Diff = MD
+ORDER BY MD DESC;
 
 
 --29. Fix this SQL! Number 3
@@ -121,42 +110,58 @@ ORDER BY PriceDifference DESC;
 --will get out of sync.
 --Improve this SQL by not repeating the hard-coded list of CustomerIDs that are fraud suspects.
 
+
 with FraudSuspects as (
-	Select *
-From Customer
-	Where
-CustomerID in (29401,11194,16490,22698,26583,12166,16036,25110,18172,11997,26731))
-, SampleCustomers as (
-Select top 100 *
-From Customer
-Where
-CustomerID not in (29401,11194,16490,22698,26583,12166,16036,25110,18172,11997,26731)
-Order by
-NewID()
+    Select *
+        From Customer
+            Where CustomerID in (
+                    29401
+                    ,11194
+                    ,16490
+                    ,22698
+                    ,26583
+                    ,12166
+                    ,16036
+                    ,25110
+                    ,18172
+                    ,11997
+                    ,26731
+            )
+),
+     SampleCustomers as (
+            Select top 100 *
+                From Customer
+                    Where CustomerID not in (
+                        29401
+                        ,11194
+                        ,16490
+                        ,22698
+                        ,26583
+                        ,12166
+                        ,16036
+                        ,25110
+                        ,18172
+                        ,11997
+                        ,26731
+                    )
+            Order by
+            NewID()
 )
 Select * From FraudSuspects
 Union
-Select * From SampleCustomers
+Select * From SampleCustomers;
 
 --30. History table with start/end date overlap
 --There is a product that has an overlapping date ranges in the ProductListPriceHistory table.
 --Find the products with overlapping records, and show the dates that overlap.
 
-SELECT * FROM ProductListPriceHistory;
-
-SELECT * FROM Calendar;
-
-WITH TMP AS (
-SELECT ProductID,
-           CalendarDate
-    FROM ProductListPriceHistory,
-         Calendar
-    WHERE CalendarDate BETWEEN StartDate AND EndDate
-	)
-	SELECT CalendarDate, ProductID, COUNT(*) AS TOTAL
-	FROM TMP
-	GROUP BY CalendarDate, ProductID
-	HAVING COUNT(*) = 2;
+SELECT ProductID, CalendarDate, COUNT(*) AS Total FROM (
+    SELECT ProductID, CalendarDate
+    FROM ProductListPriceHistory P
+        INNER JOIN Calendar C ON CalendarDate BETWEEN StartDate AND EndDate
+                      ) T
+GROUP BY ProductID, CalendarDate
+HAVING COUNT(*) = 2;
 
 --31. History table with start/end date overlap, part 2
 --It turns out that the SQL that was provided in the Answer section for the previous problem has an
@@ -165,35 +170,34 @@ SELECT ProductID,
 --If you didn't, then fix the SQL for the previous problem to show all date range overlaps
 --Sort the results by ProductID and CalendarDate.
 
-WITH TMP AS (
-SELECT ProductID,
-           CalendarDate
-    FROM ProductListPriceHistory,
-         Calendar
-    WHERE CalendarDate BETWEEN StartDate AND EndDate
-	)
-	SELECT CalendarDate, ProductID, COUNT(*) AS TOTAL
-	FROM TMP
-	GROUP BY CalendarDate, ProductID
-	HAVING COUNT(*) = 2;
+SELECT CalendarDate, ProductID, COUNT(*) AS Total FROM (
+    SELECT ProductID, CalendarDate
+    FROM ProductListPriceHistory P
+        INNER JOIN Calendar C ON CalendarDate BETWEEN StartDate AND EndDate
+        WHERE EndDate IS NOT NULL
+    ) T
+GROUP BY CalendarDate, ProductID
+HAVING COUNT(*) = 2
+ORDER BY ProductID, CalendarDate;
 
 --32. Running total of orders in last year
 --For the company dashboard we'd like to calculate the total number of orders, by month, as well
 --as the running total of orders.
 --Limit the rows to the last year of orders. Sort by calendar month.
 
-SELECT * FROM SalesOrderHeader;
-
-DECLARE @dn date;
-SET @dn='2014-06-30';
-SELECT CalendarMonth,
-       COUNT(DISTINCT  SalesOrderID) AS TotalOrders,
-       SUM(COUNT(DISTINCT  SalesOrderID)) OVER(ORDER BY CalendarMonth) AS  RunningTotal
-FROM  SalesOrderHeader
-    INNER JOIN  Calendar ON CalendarMonth = FORMAT(OrderDate,'yyyy/MM - MMM')
-WHERE OrderDate BETWEEN DATEADD(YEAR,-1,@dn) and @dn
-GROUP BY  CalendarMonth
-ORDER BY CalendarMonth;
+WITH TMP AS (
+    SELECT FORMAT(OrderDate, 'yyyy/MM - MMM', 'EN') AS CalendarMont,
+           COUNT(DISTINCT SalesOrderID) AS TotalOrders
+FROM SalesOrderHeader
+GROUP BY FORMAT(OrderDate, 'yyyy/MM - MMM', 'EN')
+)
+SELECT *, SUM(TotalOrders) OVER ( ORDER BY SUBSTRING(CalendarMont, 0, 8) ) AS RunningTotal
+FROM TMP
+WHERE CalendarMont BETWEEN
+    FORMAT(DATEADD(YEAR,-1,'2014-30-06'), 'yyyy/MM - MMM', 'EN')
+AND
+   FORMAT(DATEADD(YEAR,0,'2014-30-06'), 'yyyy/MM - MMM', 'EN')
+;
 
 
 --33. Total late orders by territory
@@ -201,13 +205,11 @@ ORDER BY CalendarMonth;
 --For this problem, an order is late when the DueDate is before the ShipDate.
 --Group and sort the rows by Territory.
 
-SELECT ST.TerritoryID, ST.TerritoryName, CountryCode, COUNT(SalesOrderID) AS TotalOrders,
-COUNT(IIF(ShipDate>DueDate,0,NULL)) AS TotalLateOrders
+SELECT DISTINCT ST.TerritoryID, TerritoryName, CountryCode,
+    COUNT(SalesOrderID) OVER ( PARTITION BY ST.TerritoryID ) AS TotalOrders,
+    COUNT(CASE WHEN DueDate < ShipDate THEN 1 END ) OVER ( PARTITION BY ST.TerritoryID) AS TotalLateOrders
 FROM SalesOrderHeader SOH
-	INNER JOIN SalesTerritory ST
-	ON ST.TerritoryID = SOH.TerritoryID
-	GROUP BY ST.TerritoryID, ST.TerritoryName, CountryCode
-	ORDER BY ST.TerritoryID;
+LEFT JOIN SalesTerritory ST on SOH.TerritoryID = ST.TerritoryID;
 
 --34. OrderDate with time component—performance aspects
 --We don't go often get into performance issues in these practice problems. But there's many
@@ -359,7 +361,7 @@ SELECT tmp.CustomerID,
        Customer.FirstName+' '+Customer.LastName,
        tmp.ProductSubCategoryName
 FROM tmp INNER JOIN  Customer ON Customer.CustomerID = tmp.CustomerID
-WHERE r=1
+WHERE r=1;
 
 --36. Order processing: time in each stage
 --When an order is placed, it goes through different stages, such as processed, readied for pick up,
@@ -424,10 +426,10 @@ WITH TMP AS (
         INNER JOIN TrackingEvent TE 
         ON OT.TrackingEventID = TE.TrackingEventID
         )
-SELECT OnlineOfflineStatus = 
+SELECT TMP.EventName, OnlineOfflineStatus =
     CASE
     WHEN OnlineOrderFlag = 0 THEN 'OFFLINE' ELSE 'ONLINE' END,
-    TMP.EventName, AVG(DATEDIFF(HOUR, TMP.TrackingEventDate, TMP.NextTrackingEventDate)) AS AverageHoursSpentInStage
+    AVG(DATEDIFF(HOUR, TMP.TrackingEventDate, TMP.NextTrackingEventDate)) AS AverageHoursSpentInStage
 FROM TMP
     INNER JOIN SalesOrderHeader ON TMP.SalesOrderID = SalesOrderHeader.SalesOrderID
     GROUP BY 
